@@ -188,12 +188,9 @@ class Source(Base):
         return candidate
 
     def gather_candidates(self, context):
-        if self.__pattern.search(context["input"]):
-            candidates = [
-                self.__entry_to_candidate(entry)
-                for entry in self.__bibliography.values()
-            ]
+        candidates = [
+            self.__entry_to_candidate(entry)
+            for entry in self.__bibliography.values()
+        ]
 
-            return candidates
-        else:
-            return []
+        return candidates
