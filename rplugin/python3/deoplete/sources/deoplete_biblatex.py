@@ -67,6 +67,11 @@ class Source(Base):
         self.parser_kwargs = BIBTEXPARSER_DEFAULTS_KWARGS.copy()
         self.options = {}
 
+        self.name = 'deoplete_bibtex.vim'
+        self.mark = '[bibtex]'
+        self.input_pattern = (r'@')
+        self.filetypes = ['markdown']
+
     @property
     def __bibliography(self):
         if self.options["reload_bibfile_on_change"]:
@@ -111,13 +116,13 @@ class Source(Base):
         self.__read_bib_file()
 
         pattern_delimiter = context["vars"].get(
-            "deoplete#sources#biblatex#delimiter", ","
+            "deoplete#sources#biblatex#delimiter", ";"
         )
         pattern_start = context["vars"].get(
-            "deoplete#sources#biblatex#startpattern", r"\[(?:[\w,]+:)?"
+            "deoplete#sources#biblatex#startpattern", r'['
         )
         pattern_key = context["vars"].get(
-            "deoplete#sources#biblatex#keypattern", r"@?[\w-]+"
+            "deoplete#sources#biblatex#keypattern", r'@'
         )
 
         pattern_current = r"{}$".format(pattern_key)
@@ -141,7 +146,7 @@ class Source(Base):
             self.options[opt] = value
 
     def __format_info(self, entry):
-        return "{title}{author}{date}".format(
+        return "{title}{author}{date}{journal}{abstract}".format(
             title=(
                 "Title: {}\n".format(entry["plain_title"])
                 if "plain_title" in entry
@@ -160,17 +165,25 @@ class Source(Base):
                 if "plain_date" in entry
                 else ""
             ),
+            journal=(
+                "Journal: {}\n".format(entry["plain_journal"])
+                if "plain_journal" in entry
+                else ""
+            ),
+            abstract=(
+                "Abstract: {}\n".format(entry["plain_abstract"])
+                if "plain_abstract" in entry
+                else ""
+            ),
         )
 
     def __entry_to_candidate(self, entry):
         candidate = {
-            "abbr": entry["ID"],
+            "abbr": entry["ID"] + ": " + entry["plain_title"],
             "word": entry["ID"],
             "kind": entry["ENTRYTYPE"],
+            "info": self.__format_info(entry)
         }
-
-        if self.options["add_info"]:
-            candidate["info"] = self.__format_info(entry)
 
         return candidate
 
