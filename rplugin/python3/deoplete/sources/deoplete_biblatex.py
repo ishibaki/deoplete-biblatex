@@ -161,8 +161,8 @@ class Source(Base):
                 else ""
             ),
             date=(
-                "Year: {}\n".format(entry["plain_date"].split("-")[0])
-                if "plain_date" in entry
+                "Year: {}\n".format(entry["date"].split("-")[0])
+                if "date" in entry
                 else ""
             ),
             journal=(
@@ -179,7 +179,8 @@ class Source(Base):
 
     def __entry_to_candidate(self, entry):
         candidate = {
-            "abbr": entry["ID"] + ": " + entry["plain_title"],
+            "abbr": entry["ID"] + ": " + entry["plain_title"]\
+                    + " (" + entry["date"] + ") " + entry["plain_journal"],
             "word": entry["ID"],
             "kind": entry["ENTRYTYPE"],
             "info": self.__format_info(entry),
