@@ -178,8 +178,14 @@ class Source(Base):
         )
 
     def __entry_to_candidate(self, entry):
+        abbr = "{cite_key}: {title} ({year}) {journal}".format(
+            cite_key=entry["ID"],
+            title=entry["plain_title"],
+            year=entry["plain_year"] if "plain_year" in entry else "NA",
+            journal=entry["plain_journal"] if "plain_journal" in entry else ""
+        )
         candidate = {
-            "abbr": entry["ID"] + ": " + entry["plain_title"] + " (" + entry["plain_year"] + ") " + entry["plain_journal"],
+            "abbr": abbr,
             "word": entry["ID"],
             "kind": entry["ENTRYTYPE"],
             "info": self.__format_info(entry),
