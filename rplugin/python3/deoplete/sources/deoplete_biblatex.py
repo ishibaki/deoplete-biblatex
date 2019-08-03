@@ -182,7 +182,7 @@ class Source(Base):
             "abbr": entry["ID"] + ": " + entry["plain_title"],
             "word": entry["ID"],
             "kind": entry["ENTRYTYPE"],
-            "info": self.__format_info(entry)
+            "info": self.__format_info(entry),
         }
 
         return candidate
