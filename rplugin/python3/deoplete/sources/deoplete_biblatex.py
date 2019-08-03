@@ -179,8 +179,7 @@ class Source(Base):
 
     def __entry_to_candidate(self, entry):
         candidate = {
-            "abbr": entry["ID"] + ": " + entry["plain_title"]\
-                    + " (" + entry["date"] + ") " + entry["plain_journal"],
+            "abbr": entry["ID"] + ": " + entry["plain_title"] + " (" + entry["date"] + ") " + entry["plain_journal"],
             "word": entry["ID"],
             "kind": entry["ENTRYTYPE"],
             "info": self.__format_info(entry),
