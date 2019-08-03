@@ -186,7 +186,7 @@ class Source(Base):
         candidate = {
             "abbr": abbr,
             "word": entry["ID"],
-            "kind": entry["plain_journal"] if "plain_journal" in entry else ""
+            "kind": entry["plain_journal"] if "plain_journal" in entry else "",
             "info": self.__format_info(entry),
         }
 
