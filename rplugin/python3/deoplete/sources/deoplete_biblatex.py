@@ -166,8 +166,8 @@ class Source(Base):
                 else ""
             ),
             journal=(
-                "Journal: {}\n".format(entry["plain_journal"])
-                if "plain_journal" in entry
+                "Journal: {}\n".format(entry["journal"])
+                if "journal" in entry
                 else ""
             ),
             abstract=(
@@ -179,7 +179,7 @@ class Source(Base):
 
     def __entry_to_candidate(self, entry):
         candidate = {
-            "abbr": entry["ID"] + ": " + entry["plain_title"] + " (" + entry["year"] + ") " + entry["plain_journal"],
+            "abbr": entry["ID"] + ": " + entry["plain_title"] + " (" + entry["year"] + ") " + entry["journal"],
             "word": entry["ID"],
             "kind": entry["ENTRYTYPE"],
             "info": self.__format_info(entry),
