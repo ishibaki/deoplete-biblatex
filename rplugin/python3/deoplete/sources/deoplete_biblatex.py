@@ -1,7 +1,7 @@
 #!/usr/bin/env
 # Standard Library
 import os
-import re
+# import re
 
 # Third Party
 import bibtexparser
@@ -115,20 +115,20 @@ class Source(Base):
         self.__bib_file_mtime = os.stat(bib_file).st_mtime
         self.__read_bib_file()
 
-        pattern_delimiter = context["vars"].get(
-            "deoplete#sources#biblatex#delimiter", ";"
-        )
-        pattern_start = context["vars"].get(
-            "deoplete#sources#biblatex#startpattern", r'['
-        )
-        pattern_key = context["vars"].get(
-            "deoplete#sources#biblatex#keypattern", r'@'
-        )
+        # pattern_delimiter = context["vars"].get(
+        #     "deoplete#sources#biblatex#delimiter", ";"
+        # )
+        # pattern_start = context["vars"].get(
+        #     "deoplete#sources#biblatex#startpattern", r'['
+        # )
+        # pattern_key = context["vars"].get(
+        #     "deoplete#sources#biblatex#keypattern", r'@'
+        # )
 
-        pattern_current = r"{}$".format(pattern_key)
-        pattern_completed = r"(?:{}{})*".format(pattern_key, pattern_delimiter)
+        # pattern_current = r"{}$".format(pattern_key)
+        # pattern_completed = r"(?:{}{})*".format(pattern_key, pattern_delimiter)
 
-        self.__pattern = re.compile(pattern_start + pattern_completed + pattern_current)
+        # self.__pattern = re.compile(pattern_start + pattern_completed + pattern_current)
 
         self.__get_bool_options(context, ["reload_bibfile_on_change", "add_info"])
 
